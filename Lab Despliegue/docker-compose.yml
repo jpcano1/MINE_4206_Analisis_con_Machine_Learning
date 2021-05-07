@@ -25,6 +25,8 @@ services:
     command: /app/start
     networks:
       - ml_network
+    depends_on: 
+      - db
 
   db:
     image: postgres
@@ -47,5 +49,6 @@ services:
       - 3000:80
     depends_on:
       - backend
+      - db
     networks:
       - ml_network
