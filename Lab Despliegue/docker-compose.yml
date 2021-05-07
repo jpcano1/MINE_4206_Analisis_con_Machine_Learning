@@ -22,7 +22,6 @@ services:
       - backend/env/production/app
     ports:
       - 5000:5000
-    command: /app/start
     networks:
       - ml_network
     depends_on: 
