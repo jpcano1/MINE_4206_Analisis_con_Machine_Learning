@@ -1,13 +1,19 @@
 version: "3.7"
 
 networks:
-  bi_network:
+  ml_network:
     driver: bridge
+
+volumes:
+  local_postgres_data:
+    name: "local_postgres_data"
+  local_postgres_data_backups: 
+    name: "local_postgres_data_backups"
 
 services:
   backend:
-    container_name: bi_backend
-    image: prod_bi_backend
+    container_name: backend
+    image: backend
     build:
       context: backend
       dockerfile: Dockerfile
@@ -16,15 +22,24 @@ services:
       - backend/env/production/app
     ports:
       - 5000:5000
-    expose:
-      - 5000
     command: /app/start
     networks:
-      - bi_network
+      - ml_network
+
+  db:
+    image: postgres
+    container_name: db
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data
+      - local_postgres_data_backups:/backups
+    env_file: 
+      - backend/env/production/postgres
+    networks: 
+      - ml_network
 
   frontend:
-    container_name: bi_frontend
-    image: prod_bi_frontend
+    container_name: frontend
+    image: frontend
     build:
       context: frontend
       dockerfile: Dockerfile
@@ -33,4 +48,4 @@ services:
     depends_on:
       - backend
     networks:
-      - bi_network
+      - ml_network
