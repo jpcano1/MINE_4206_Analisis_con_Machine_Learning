@@ -8,11 +8,6 @@ ADD requirements/dev.txt $APP_DIR
 ADD requirements/prod.txt $APP_DIR
 ADD wsgi.py $APP_DIR
 
-# Run Commands
-ADD compose/production/start $APP_DIR
-RUN sed -i 's/\r//' $APP_DIR/start
-RUN chmod +x $APP_DIR/start
-
 ENV PYTHONUNBUFFERED 1
 ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
