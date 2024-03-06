@@ -1,10 +1,9 @@
 import pandas as pd
-from sklearn.feature_extraction.text import (CountVectorizer,
-                                             TfidfTransformer)
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+
 
 class BaseController:
-    def __init__(self, vectorizer: CountVectorizer,
-                 transformer: TfidfTransformer):
+    def __init__(self, vectorizer: CountVectorizer, transformer: TfidfTransformer):
         self.vectorizer = vectorizer
         self.transformer = transformer
 

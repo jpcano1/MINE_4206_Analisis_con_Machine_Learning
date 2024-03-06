@@ -2,6 +2,7 @@ from ..utils import db
 from marshmallow_sqlalchemy import ModelSchema
 from marshmallow import fields
 
+
 class Labeler(db.Model):
     __tablename__ = "labeler"
 
@@ -13,6 +14,7 @@ class Labeler(db.Model):
         db.session.add(self)
         db.session.commit()
         return self
+
 
 class LabelerSchema(ModelSchema):
     class Meta(ModelSchema.Meta):

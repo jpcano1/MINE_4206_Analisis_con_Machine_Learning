@@ -13,7 +13,7 @@ import logging, sys
 logging.basicConfig(
     stream=sys.stdout,
     format="%(asctime)s|%(levelname)s|%(filename)s: %(lineno)s| %(message)s",
-    level=logging.DEBUG
+    level=logging.DEBUG,
 )
 
 app = Flask(__name__)
@@ -37,10 +37,13 @@ model: SVC = joblib.load("src/model.pkl")
 vectorizer: CountVectorizer = joblib.load("src/vectorizer.pkl")
 transformer: TfidfTransformer = joblib.load("src/transformer.pkl")
 
-api.add_resource(Prediction, "/api/prediction",
-                 resource_class_kwargs={
-                     "model": model,
-                     "vectorizer": vectorizer,
-                     "transformer": transformer
-                 })
+api.add_resource(
+    Prediction,
+    "/api/prediction",
+    resource_class_kwargs={
+        "model": model,
+        "vectorizer": vectorizer,
+        "transformer": transformer,
+    },
+)
 api.add_resource(Labeler, "/api/labeler")
